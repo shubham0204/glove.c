@@ -5,7 +5,6 @@
 
 #define EXPAND_LOADFACTOR_THRESHOLD 0.75
 #define EXPAND_SCALE 2.0
-#define SHRINK_LOADFACTOR_THRESHOLD 0.2
 #define INITIAL_NUM_BUCKETS 5
 
 struct bucket_item {
