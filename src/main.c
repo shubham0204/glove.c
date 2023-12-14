@@ -1,71 +1,41 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct {
-    __uint32_t vocab_size ; 
-    __uint32_t embedding_dims ; 
-    __uint32_t str_word_size ; 
-    char** words ; 
-    float** embeddings ; 
-} glove ; 
-
-glove* create_glove(
-    const char* filename , 
-    const __uint32_t vocab_size , 
-    const __uint32_t embedding_dims
-) {
-    FILE* file_ptr = fopen( filename , "r" ) ; 
-    char** words = (char**) malloc( sizeof( char* ) * vocab_size ) ; 
-    float** embeddings = (float**) malloc( sizeof( float* ) * vocab_size ) ; 
-    
-    long cntr = 0 ;
-    char word_buffer[ 80 ] ; 
-    while( fscanf( file_ptr , "%s" , word_buffer ) == 1 ) {
-        float* embedding = (float*) malloc( sizeof( float ) * embedding_dims ) ; 
-        for( int i = 0 ; i < embedding_dims ; i++ ) {
-            fscanf( file_ptr , "%f" , (embedding + i) ) ; 
-        }
-        char* word = (char*) malloc( sizeof( char ) * strlen( word_buffer ) ) ;
-        strncpy( word , word_buffer , strlen( word_buffer ) ) ; 
-        *( words + cntr ) = word ; 
-        *( embeddings + cntr ) = embedding ; 
-        cntr++ ; 
-    }
-    fclose( file_ptr ) ; 
-    glove* vectors = (glove*) malloc( sizeof( glove ) ) ; 
-    vectors -> str_word_size = 80 ; 
-    vectors -> vocab_size = vocab_size ; 
-    vectors -> embedding_dims = embedding_dims ; 
-    vectors -> words = words ; 
-    vectors -> embeddings = embeddings ; 
-    return vectors; 
-}
-
-void release_glove(
-    glove* instance
-) {
-    for( int i = 0 ; i < instance -> vocab_size ; i++ ) {
-        free( instance -> embeddings[i] ) ; 
-        free( instance -> words[i] ) ;
-    }
-    free( instance -> embeddings ) ; 
-    free( instance -> words ) ; 
-    free( instance ) ; 
-}
+#include <sys/time.h>
+#include <unistd.h>
+#include "glove.c"
 
 int main( int argc , char** argv ) {
 
     char** words ; 
     float** embeddings ; 
 
-    glove* instance = create_glove( 
+    glove* instance = glove_create( 
         "glove.6B.50d.txt" , 
         400000 , 
         50
     ) ; 
 
-    release_glove( instance ) ; 
+    long start, end;
+    struct timeval timecheck;
+    gettimeofday(&timecheck, NULL);
+    start = (long)timecheck.tv_sec * 1000 + (long)timecheck.tv_usec / 1000;
+    gettimeofday(&timecheck, NULL);
+    end = (long)timecheck.tv_sec * 1000 + (long)timecheck.tv_usec / 1000;
+
+    float* embedding = glove_get_embedding( instance , argv[1] ) ;
+
+    printf("%ld milliseconds elapsed\n", (end - start));
+
+    if( embedding ) {
+        for( int i = 0 ; i < instance -> embedding_dims ; i++ ) {
+            printf( "%f " , embedding[i] ) ;
+        }
+        printf( "\n" ) ; 
+    }
+    else {
+        printf( "embedding not found" ) ;
+    }
+    
+
+    glove_release( instance ) ; 
 
     return 0;
 }

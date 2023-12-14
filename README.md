@@ -1,3 +1,3 @@
+# `glove.c` Port of GloVe Embeddings in C
 
-- [ ] Write functions to read structs in C - word embeddings and indices
-- [ ] Implement cache like retrieval system (buffer)
+## 
