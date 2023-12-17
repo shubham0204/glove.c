@@ -1,6 +1,10 @@
 # `glove.c` Port of GloVe Embeddings in C
 
 
+## Usage
+
+The program below shows the usage of the `glove.c` with pretrained embeddings taken from [StanfordNLP/GloVe](https://github.com/stanfordnlp/GloVe?tab=readme-ov-file#download-pre-trained-word-vectors) repository. The embeddings are derived from the Wikipedia 2014 + Gigaword 5 datasets consisting of 6B tokens and 400K vocab with 50 dimensions.
+
 ```c
 #include "glove.c"
 
@@ -24,6 +28,10 @@ int main( int argc , char** argv ) {
     return 0;
 }
 ```
+
+## Working
+
+`glove.c` uses a hashtable with open-chaining to get near-constant access times for all embeddings, at the expense of extra storage overhead.
 
 
 ## Using GloVe Trained On A Custom Corpus

@@ -19,9 +19,23 @@ glove* glove_create(
 
 float* glove_get_embedding(
     glove* instance , 
-    char* word 
+    const char* word 
 ) ;
 
 void glove_release(
     glove* instance
 ) ;
+
+int glove_compare_cosine(
+    glove* instance , 
+    const char* word1 , 
+    const char* word2 , 
+    float* score 
+) 
+
+int glove_compare_l2norm(
+    glove* instance , 
+    const char* word1 , 
+    const char* word2 , 
+    float* score 
+)

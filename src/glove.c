@@ -1,5 +1,6 @@
 #include "glove.h"
 #include "hashmap.c"
+#include <math.h>
 
 typedef struct {
     __uint32_t vocab_size ; 
@@ -48,7 +49,7 @@ extern glove* glove_create(
 
 extern float* glove_get_embedding(
     glove* instance , 
-    char* word 
+    const char* word 
 ) {
     int index = hashtable_get( instance -> table , word ) ; 
     if( index ) {
@@ -56,6 +57,52 @@ extern float* glove_get_embedding(
     }
     else {
         return 0 ;
+    }
+}
+
+extern int glove_compare_cosine(
+    glove* instance , 
+    const char* word1 , 
+    const char* word2 , 
+    float* score 
+) {
+    float* embedding1 = glove_get_embedding( instance , word1 ) ; 
+    float* embedding2 = glove_get_embedding( instance , word2 ) ; 
+    if( embedding1 && embedding2 ) {
+        float mag1 = 0.0f ; 
+        float mag2 = 0.0f ; 
+        float dot_product = 0.0f ; 
+        for( int i = 0 ; i < instance -> embedding_dims ; i++ ) {
+            dot_product += embedding1[i] * embedding2[i] ; 
+            mag1 += embedding1[i] * embedding1[i] ; 
+            mag2 += embedding2[i] * embedding2[i] ; 
+        }
+        *score = dot_product / ( sqrt( mag1 ) * sqrt( mag2 ) ) ;
+        return 1 ; 
+    }
+    else {
+        return 0 ; 
+    }
+}
+
+extern int glove_compare_l2norm(
+    glove* instance , 
+    const char* word1 , 
+    const char* word2 , 
+    float* score 
+) {
+    float* embedding1 = glove_get_embedding( instance , word1 ) ; 
+    float* embedding2 = glove_get_embedding( instance , word2 ) ; 
+    if( embedding1 && embedding2 ) {
+        float diffs_squared = 0.0f ; 
+        for( int i = 0 ; i < instance -> embedding_dims ; i++ ) {
+            diffs_squared += powf( embedding1[i] - embedding2[i] , 2.0f ) ; 
+        }
+        *score = sqrt( diffs_squared ) ; 
+        return 1 ; 
+    }
+    else {
+        return 0 ; 
     }
 }
 
