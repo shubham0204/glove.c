@@ -1,17 +1,11 @@
 #include "glove.h"
 #include "hashmap.c"
-#include <math.h>
 
-typedef struct {
-    __uint32_t vocab_size ; 
-    __uint32_t embedding_dims ; 
-    __uint32_t str_word_size ; 
-    char** words ; 
-    float** embeddings ; 
-    struct hashtable* table ;
-} glove ; 
-
-extern glove* glove_create(
+/**
+ * Allocates memory for embeddings and words and stores them 
+ * in a `hashtable`
+ */
+glove* glove_create(
     const char* filename , 
     const __uint32_t vocab_size , 
     const __uint32_t embedding_dims
@@ -19,9 +13,14 @@ extern glove* glove_create(
     FILE* file_ptr = fopen( filename , "r" ) ; 
     char** words = (char**) malloc( sizeof( char* ) * vocab_size ) ; 
     float** embeddings = (float**) malloc( sizeof( float* ) * vocab_size ) ; 
-    
+
+	// Assuming every word in the vocab
+	// fits in the buffer completely
+    char word_buffer[ 80 ] ;
     long cntr = 0 ;
-    char word_buffer[ 80 ] ; 
+
+    // Read embedding and word from the text file
+    // and store them in `words` and `embeddings`
     while( fscanf( file_ptr , "%s" , word_buffer ) == 1 ) {
         float* embedding = (float*) malloc( sizeof( float ) * embedding_dims ) ; 
         for( int i = 0 ; i < embedding_dims ; i++ ) {
@@ -34,12 +33,15 @@ extern glove* glove_create(
         cntr++ ; 
     }
     fclose( file_ptr ) ; 
+
     glove* vectors = (glove*) malloc( sizeof( glove ) ) ; 
     vectors -> str_word_size = 80 ; 
     vectors -> vocab_size = vocab_size ; 
     vectors -> embedding_dims = embedding_dims ; 
     vectors -> words = words ; 
     vectors -> embeddings = embeddings ; 
+
+    // Create a new hashtable and insert the words in it
     vectors -> table = hashtable_create( vocab_size * 0.95 ) ; 
     for( __uint64_t i = 0 ; i < vocab_size ; i++ ) {
         hashtable_insert( vectors -> table ,  vectors -> words[i] , i ) ;    
@@ -47,7 +49,10 @@ extern glove* glove_create(
     return vectors; 
 }
 
-extern float* glove_get_embedding(
+/**
+ * 
+ */
+float* glove_get_embedding(
     glove* instance , 
     const char* word 
 ) {
@@ -60,7 +65,7 @@ extern float* glove_get_embedding(
     }
 }
 
-extern int glove_compare_cosine(
+int glove_compare_cosine(
     glove* instance , 
     const char* word1 , 
     const char* word2 , 
@@ -85,7 +90,7 @@ extern int glove_compare_cosine(
     }
 }
 
-extern int glove_compare_l2norm(
+int glove_compare_l2norm(
     glove* instance , 
     const char* word1 , 
     const char* word2 , 
@@ -106,7 +111,7 @@ extern int glove_compare_l2norm(
     }
 }
 
-extern void glove_release(
+void glove_release(
     glove* instance
 ) {
     for( int i = 0 ; i < instance -> vocab_size ; i++ ) {

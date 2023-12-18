@@ -6,7 +6,7 @@
 The program below shows the usage of the `glove.c` with pretrained embeddings taken from [StanfordNLP/GloVe](https://github.com/stanfordnlp/GloVe?tab=readme-ov-file#download-pre-trained-word-vectors) repository. The embeddings are derived from the Wikipedia 2014 + Gigaword 5 datasets consisting of 6B tokens and 400K vocab with 50 dimensions.
 
 ```c
-#include "glove.c"
+#include "glove.h"
 
 int main( int argc , char** argv ) {
     glove* instance = glove_create( 
@@ -27,6 +27,13 @@ int main( int argc , char** argv ) {
     glove_release( instance ) ; 
     return 0;
 }
+```
+
+Compile the program with `glove.c` and `libmath`,
+
+```
+$> gcc main.c glove.c -o main -lm
+$> ./main hello
 ```
 
 ## Working
