@@ -10,11 +10,11 @@ struct bucket_item {
 
 struct hashtable {
     struct bucket_item* buckets ; 
-    __uint32_t num_buckets ;  
-    __uint32_t num_items ; 
+    size_t num_buckets ;  
+    size_t num_items ; 
 } hashtable ; 
 
-struct hashtable* hashtable_create( __uint32_t num_buckets ) {
+struct hashtable* hashtable_create( size_t num_buckets ) {
     struct hashtable* table = (struct hashtable*) malloc( sizeof( hashtable ) ) ;
     table -> buckets = (struct bucket_item*) calloc( num_buckets , sizeof( struct bucket_item ) ) ; 
     table -> num_buckets = num_buckets ;

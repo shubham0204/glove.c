@@ -36,8 +36,8 @@ typedef struct {
  */
 glove* glove_create(
     const char* filename , 
-    const __uint32_t vocab_size , 
-    const __uint32_t embedding_dims
+    const size_t vocab_size , 
+    const size_t embedding_dims
 ) ; 
 
 /**

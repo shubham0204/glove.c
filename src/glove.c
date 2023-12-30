@@ -7,8 +7,8 @@
  */
 glove* glove_create(
     const char* filename , 
-    const __uint32_t vocab_size , 
-    const __uint32_t embedding_dims
+    const size_t vocab_size , 
+    const size_t embedding_dims
 ) {
     FILE* file_ptr = fopen( filename , "r" ) ; 
     char** words = (char**) malloc( sizeof( char* ) * vocab_size ) ; 
@@ -43,7 +43,7 @@ glove* glove_create(
 
     // Create a new hashtable and insert the words in it
     vectors -> table = hashtable_create( vocab_size * 0.95 ) ; 
-    for( __uint64_t i = 0 ; i < vocab_size ; i++ ) {
+    for( size_t i = 0 ; i < vocab_size ; i++ ) {
         hashtable_insert( vectors -> table ,  vectors -> words[i] , i ) ;    
     }
     return vectors; 
