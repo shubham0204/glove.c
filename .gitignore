@@ -1,3 +1,5 @@
 src/hashmap_dynamic.c
 glove.6B.50d.txt
 main
+.vscode
+build

@@ -3,14 +3,23 @@
 int main( int argc , char** argv ) {
     
     glove* instance = glove_create( 
-        "glove.6B.50d.txt" , 
+        "../glove.6B.50d.txt" , 
         400000 , 
         50
     ) ; 
 
+    float* embedding = glove_get_embedding( instance , "hello" ) ;
+    for( int i = 0 ; i < 50 ; i++ ) {
+        printf( "%f " , embedding[i] ) ;
+    }
+    printf( "\n" ) ;
+
     while( 1 ) {
         float score ;
-        if( glove_compare_cosine( instance , argv[1] , argv[2] , &score ) ) {
+        char word1[80]; 
+        char word2[80]; 
+        scanf( "%s %s" , word1 , word2 ) ; 
+        if( glove_compare_cosine( instance , word1 , word2 , &score ) ) {
             printf( "Score: %f \n" , score ) ;
         } 
         else {
