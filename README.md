@@ -1,9 +1,12 @@
 # `glove.c` Port of GloVe Embeddings in C
 
-
 ## Usage
 
 The program below shows the usage of the `glove.c` with pretrained embeddings taken from [StanfordNLP/GloVe](https://github.com/stanfordnlp/GloVe?tab=readme-ov-file#download-pre-trained-word-vectors) repository. The embeddings are derived from the Wikipedia 2014 + Gigaword 5 datasets consisting of 6B tokens and 400K vocab with 50 dimensions.
+
+### Usage in C
+
+> See [src/main.c](https://github.com/shubham0204/glove.c/blob/main/src/main.c)
 
 ```c
 #include "glove.h"
@@ -34,6 +37,42 @@ Compile the program with `glove.c` and `libmath`,
 ```
 $> gcc main.c glove.c -o main -lm
 $> ./main hello
+```
+
+### Usage in Java
+
+> See [examples/java](https://github.com/shubham0204/glove.c/tree/main/examples/java)
+
+```java
+import java.util.Arrays;
+
+public class Main {
+
+    public static void main(String[] args) {
+        String word = "hello" ; 
+        GloVe glove = new GloVe( 
+            "glove.6B.50d.txt" , 
+            400000 , 
+            50
+        ) ; 
+        float[] embedding = glove.getEmbedding( word ) ;
+        System.out.println( "Embedding: " + Arrays.toString( embedding ) ) ;
+    }
+}
+```
+
+### Usage in Python
+
+> See [examples/python](https://github.com/shubham0204/glove.c/tree/main/examples/python)
+
+```python
+from glove import GloVe
+import time
+
+glove = GloVe( "glove.6B.50d.txt" , 400000 , 50 )
+
+vec = glove.get_embedding( "hello" )
+print( vec )
 ```
 
 ## Working
