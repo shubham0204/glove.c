@@ -1,6 +1,7 @@
 src/hashmap_dynamic.c
 glove.6B.50d.txt
 main
+.cache
 .vscode
 build
 __pycache__
