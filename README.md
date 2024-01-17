@@ -1,4 +1,19 @@
+![glove-c-banner](https://github.com/shubham0204/glove.c/assets/41076823/c0bf7ad9-3187-4f62-9f56-73852d1c9286)
+
 # `glove.c` Port of GloVe Embeddings in C
+
+> A simple, cross-platform library which accesses GloVe word embeddings from a given text file using open-chaining hashmaps
+
+**Contents**
+
+1. [Usage](#usage)
+    1. [Usage in C](#usage-in-c)
+    2. [Usage in Java](#usage-in-java)
+    3. [Usage in Python](#usage-in-python)
+2. [Working](#working)
+3. [Using Glove Pretrained On A Custom Corpus](#using-glove-pretrained-on-a-custom-corpus)
+4. [Contributing](#contributing)
+5. [Useful External Resources](#useful-external-resources)
 
 ## Usage
 
@@ -103,3 +118,13 @@ $ python eval/python/evaluate.py
 ```
 
 After training is complete, the `vectors.txt` file can be found in the root directory of the project. Along with `vectors.txt`, we also need `vector size` and `vocab size` from console output, as given above. These three parameters would go into the `glove_create` function which returns an instance of `glove` and allows us to get embeddings for words. 
+
+## Contributing
+
+- A Javascript wrapper with WebAssembly
+- Improving `hashmap.c` for better performance (memory and access time)
+- Reducing the overall memory consumption - currently, all contents of the vectors text-file are loaded in memory
+
+## Useful External Resources
+
+- [GloVe: Global Vectors for Word Representation](https://nlp.stanford.edu/projects/glove/)
