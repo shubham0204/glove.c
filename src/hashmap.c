@@ -4,7 +4,7 @@
 
 struct bucket_item {
     char* word ; 
-    __uint32_t index ; 
+    size_t index ; 
     struct bucket_item* next_item ; 
 } ; 
 
@@ -22,13 +22,13 @@ struct hashtable* hashtable_create( size_t num_buckets ) {
     return table ; 
 }
 
-__uint32_t hash( 
+size_t hash( 
     struct hashtable* table , 
     char* word 
 ) {
-    __uint32_t h = 0 ; 
-    for( int i = 0 ; i < strlen( word ) ; i++ ) {
-        h = h * 31 + (__uint32_t)word[ i ] ;
+    size_t h = 0 ; 
+    for( size_t i = 0 ; i < strlen( word ) ; i++ ) {
+        h = h * 31 + (size_t)word[ i ] ;
     }
     return h % table -> num_buckets ;  
 }
@@ -36,7 +36,7 @@ __uint32_t hash(
 void hashtable_print( 
     struct hashtable* table 
 ) {
-    for( int i = 0 ; i < table -> num_buckets ; i++ ) {
+    for( size_t i = 0 ; i < table -> num_buckets ; i++ ) {
         struct bucket_item* curr_node = (table -> buckets[i]).next_item ; 
         printf( "%i " , i ) ; 
         while( curr_node ) {
@@ -48,7 +48,7 @@ void hashtable_print(
 }
 
 void hashtable_release( struct hashtable* table ) {
-    for( int i = 0 ; i < table -> num_buckets ; i++ ) {
+    for( size_t i = 0 ; i < table -> num_buckets ; i++ ) {
         struct bucket_item* curr_node = (table -> buckets[i]).next_item ; 
         while( curr_node ) {
             struct bucket_item* next_item = curr_node -> next_item ; 
@@ -63,10 +63,10 @@ void hashtable_release( struct hashtable* table ) {
 void hashtable_insert( 
     struct hashtable* table , 
     char* word , 
-    __uint32_t index 
+    size_t index 
 ) {
     table -> num_items++ ; 
-    __uint32_t key = hash( table , word ) ; 
+    size_t key = hash( table , word ) ; 
     if( (table -> buckets[key]).next_item ) {
         struct bucket_item* curr_node = (table -> buckets[key]).next_item ; 
         while( curr_node -> next_item ) {
@@ -90,7 +90,7 @@ void hashtable_insert(
 }
 
 int hashtable_get( struct hashtable* table , char* word ) {
-    __uint32_t key = hash( table , word ) ;
+    size_t key = hash( table , word ) ;
     if( (table -> buckets[key]).next_item ) {
         struct bucket_item* curr_node = (table -> buckets[key]).next_item ; 
         while( curr_node )  {

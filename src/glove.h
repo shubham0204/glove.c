@@ -19,9 +19,9 @@
  * @brief Holds pointers to words and embeddings
  */
 typedef struct {
-    __uint32_t vocab_size ; 
-    __uint32_t embedding_dims ; 
-    __uint32_t str_word_size ; 
+    size_t vocab_size ; 
+    size_t embedding_dims ; 
+    size_t str_word_size ; 
     char** words ; 
     float** embeddings ; 
     struct hashtable* table ;
