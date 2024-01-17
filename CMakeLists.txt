@@ -8,11 +8,11 @@ set(
     src/main.c
 )
 add_executable(
-    main
+    example
     ${BIN_SOURCES}
 )
 target_link_libraries(
-    main
+    example
     m
 )
 
