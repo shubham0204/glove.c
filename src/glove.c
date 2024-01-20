@@ -50,7 +50,8 @@ glove* glove_create(
 }
 
 /**
- * 
+ * Computes the key of the given `word` using the hash function
+ * and searches for the embedding in the table
  */
 float* glove_get_embedding(
     glove* instance , 
@@ -65,6 +66,10 @@ float* glove_get_embedding(
     }
 }
 
+/**
+ * Retrieves the embeddings of `word1` and `word2` 
+ * and computes cosine similarity
+ */
 int glove_compare_cosine(
     glove* instance , 
     const char* word1 , 
@@ -90,6 +95,10 @@ int glove_compare_cosine(
     }
 }
 
+/**
+ * Retrives the embeddings of `word1` and `word2`
+ * and compute the L2-norm of their difference
+ */
 int glove_compare_l2norm(
     glove* instance , 
     const char* word1 , 
@@ -111,6 +120,10 @@ int glove_compare_l2norm(
     }
 }
 
+/**
+ * Releases the memory acquired by the embeddings 
+ * and the hashtable
+ */
 void glove_release(
     glove* instance
 ) {
