@@ -2,18 +2,36 @@
 
 # `glove.c` Port of GloVe Embeddings in C
 
-> A simple, cross-platform library which accesses GloVe word embeddings from a given text file using open-chaining hashmaps
+> A simple, cross-platform library which accesses GloVe word embeddings from a given text file using open-chaining hashmap
 
 **Contents**
 
-1. [Usage](#usage)
+1. [Build Instructions](#build-instructions)
+2. [Usage](#usage)
     1. [Usage in C](#usage-in-c)
     2. [Usage in Java](#usage-in-java)
     3. [Usage in Python](#usage-in-python)
-2. [Working](#working)
-3. [Using Glove Pretrained On A Custom Corpus](#using-glove-pretrained-on-a-custom-corpus)
-4. [Contributing](#contributing)
-5. [Useful External Resources](#useful-external-resources)
+3. [Working](#working)
+4. [Using Glove Pretrained On A Custom Corpus](#using-glove-pretrained-on-a-custom-corpus)
+5. [Contributing](#contributing)
+6. [Useful External Resources](#useful-external-resources)
+
+## Build Instructions
+
+The build-script (`CMakeLists.txt`) generates two targets, `example` and `libglove` where
+
+- `example` is a sample C-program demonstrating the use of the library, as in [Usage in C](#usage-in-c)
+- `libglove` is a dynamic library that can be linked in other programs
+
+```
+$> git clone https://github.com/shubham0204/glove.c
+$> cd glove.c
+$glove.c> mkdir build && cd build
+$glove.c/build> cmake ..
+$glove.c/build> make
+```
+
+The build artifacts are generated in the `build` directory after executing the above commmands.
 
 ## Usage
 
