@@ -24,7 +24,7 @@ struct hashtable* hashtable_create( size_t num_buckets ) {
 
 size_t hash( 
     struct hashtable* table , 
-    char* word 
+    const char* word 
 ) {
     size_t h = 0 ; 
     for( size_t i = 0 ; i < strlen( word ) ; i++ ) {
@@ -33,12 +33,13 @@ size_t hash(
     return h % table -> num_buckets ;  
 }
 
+// FOR DEBUGGING PURPOSES
 void hashtable_print( 
     struct hashtable* table 
 ) {
     for( size_t i = 0 ; i < table -> num_buckets ; i++ ) {
         struct bucket_item* curr_node = (table -> buckets[i]).next_item ; 
-        printf( "%i " , i ) ; 
+        printf( "%li " , i ) ; 
         while( curr_node ) {
             printf( "%s " , curr_node -> word ) ; 
             curr_node = curr_node -> next_item ; 
@@ -62,8 +63,8 @@ void hashtable_release( struct hashtable* table ) {
 
 void hashtable_insert( 
     struct hashtable* table , 
-    char* word , 
-    size_t index 
+    const char* word , 
+    const size_t index 
 ) {
     table -> num_items++ ; 
     size_t key = hash( table , word ) ; 
@@ -89,7 +90,10 @@ void hashtable_insert(
     }
 }
 
-int hashtable_get( struct hashtable* table , char* word ) {
+int hashtable_get( 
+    struct hashtable* table , 
+    const char* word 
+) {
     size_t key = hash( table , word ) ;
     if( (table -> buckets[key]).next_item ) {
         struct bucket_item* curr_node = (table -> buckets[key]).next_item ; 
@@ -99,6 +103,7 @@ int hashtable_get( struct hashtable* table , char* word ) {
             }
             curr_node = curr_node -> next_item ; 
         }
+        return -1;
     }
     else {
         return -1;

@@ -1,5 +1,6 @@
 #include "glove.h"
 #include "hashmap.c"
+#include <stddef.h>
 
 /**
  * Allocates memory for embeddings and words and stores them 
@@ -23,7 +24,7 @@ glove* glove_create(
     // and store them in `words` and `embeddings`
     while( fscanf( file_ptr , "%s" , word_buffer ) == 1 ) {
         float* embedding = (float*) malloc( sizeof( float ) * embedding_dims ) ; 
-        for( int i = 0 ; i < embedding_dims ; i++ ) {
+        for( size_t i = 0 ; i < embedding_dims ; i++ ) {
             fscanf( file_ptr , "%f" , (embedding + i) ) ; 
         }
         char* word = (char*) malloc( sizeof( char ) * strlen( word_buffer ) ) ;
@@ -82,7 +83,7 @@ int glove_compare_cosine(
         float mag1 = 0.0f ; 
         float mag2 = 0.0f ; 
         float dot_product = 0.0f ; 
-        for( int i = 0 ; i < instance -> embedding_dims ; i++ ) {
+        for( size_t i = 0 ; i < instance -> embedding_dims ; i++ ) {
             dot_product += embedding1[i] * embedding2[i] ; 
             mag1 += embedding1[i] * embedding1[i] ; 
             mag2 += embedding2[i] * embedding2[i] ; 
@@ -109,7 +110,7 @@ int glove_compare_l2norm(
     float* embedding2 = glove_get_embedding( instance , word2 ) ; 
     if( embedding1 && embedding2 ) {
         float diffs_squared = 0.0f ; 
-        for( int i = 0 ; i < instance -> embedding_dims ; i++ ) {
+        for( size_t i = 0 ; i < instance -> embedding_dims ; i++ ) {
             diffs_squared += powf( embedding1[i] - embedding2[i] , 2.0f ) ; 
         }
         *score = sqrt( diffs_squared ) ; 
@@ -127,7 +128,7 @@ int glove_compare_l2norm(
 void glove_release(
     glove* instance
 ) {
-    for( int i = 0 ; i < instance -> vocab_size ; i++ ) {
+    for( size_t i = 0 ; i < instance -> vocab_size ; i++ ) {
         free( instance -> embeddings[i] ) ; 
         free( instance -> words[i] ) ;
     }
