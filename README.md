@@ -155,3 +155,9 @@ After training is complete, the `vectors.txt` file can be found in the root dire
 ## Useful External Resources
 
 - [GloVe: Global Vectors for Word Representation](https://nlp.stanford.edu/projects/glove/)
+- [Comment on my post on r/C_Programming by `skeeto`](https://www.reddit.com/r/C_Programming/comments/19b3br8/comment/kipm82f/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
+- [How do I use valgrind to find memory leaks?](https://stackoverflow.com/a/44989219/13546426)
+- [Still Reachable Leak detected by Valgrind](https://stackoverflow.com/questions/3840582/still-reachable-leak-detected-by-valgrind)
+- [How can I install clang-format in Ubuntu?](https://stackoverflow.com/questions/20756924/how-can-i-install-clang-format-in-ubuntu)
+- [How to call clang-format over a c/cpp project folder?](https://stackoverflow.com/questions/28896909/how-to-call-clang-format-over-a-cpp-project-folder)
+- [How to auto indent a C++ class with 4 spaces using clang-format?](https://stackoverflow.com/questions/42799183/how-to-auto-indent-a-c-class-with-4-spaces-using-clang-format)
