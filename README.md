@@ -16,7 +16,9 @@
 5. [Contributing](#contributing)
 6. [Useful External Resources](#useful-external-resources)
 
-## Build Instructions
+## Setup
+
+### Build Instructions
 
 The build-script (`CMakeLists.txt`) generates two targets, `example` and `libglove` where
 
@@ -29,6 +31,13 @@ $> cd glove.c
 $glove.c> mkdir build && cd build
 $glove.c/build> cmake ..
 $glove.c/build> make
+```
+
+## `valgrind` Report
+
+```
+$glove.c> gcc -Wall -Wextra -ggdb3 src/glove.c src/main.c -o main -lm
+$glove.c> valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./main
 ```
 
 The build artifacts are generated in the `build` directory after executing the above commmands.
