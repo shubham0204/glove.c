@@ -6,7 +6,7 @@
 
 **Contents**
 
-1. [Build Instructions](#build-instructions)
+1. [Setup](#setup)
 2. [Usage](#usage)
     1. [Usage in C](#usage-in-c)
     2. [Usage in Java](#usage-in-java)
@@ -33,7 +33,7 @@ $glove.c/build> cmake ..
 $glove.c/build> make
 ```
 
-## `valgrind` Report
+### `valgrind` Report
 
 ```
 $glove.c> gcc -Wall -Wextra -ggdb3 src/glove.c src/main.c -o main -lm
