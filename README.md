@@ -161,3 +161,4 @@ After training is complete, the `vectors.txt` file can be found in the root dire
 - [How can I install clang-format in Ubuntu?](https://stackoverflow.com/questions/20756924/how-can-i-install-clang-format-in-ubuntu)
 - [How to call clang-format over a c/cpp project folder?](https://stackoverflow.com/questions/28896909/how-to-call-clang-format-over-a-cpp-project-folder)
 - [How to auto indent a C++ class with 4 spaces using clang-format?](https://stackoverflow.com/questions/42799183/how-to-auto-indent-a-c-class-with-4-spaces-using-clang-format)
+- [Reddit discussion on `glove.c`](https://www.reddit.com/r/C_Programming/comments/19b3br8/introducing_glovec_a_port_of_glove_word/)
