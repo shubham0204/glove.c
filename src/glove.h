@@ -18,14 +18,13 @@
 /**
  * @brief Holds pointers to words and embeddings
  */
-typedef struct
-{
-    size_t vocab_size;
-    size_t embedding_dims;
-    size_t str_word_size;
-    char **words;
-    float **embeddings;
-    struct hashtable *table;
+typedef struct {
+    size_t            vocab_size;
+    size_t            embedding_dims;
+    size_t            str_word_size;
+    char**            words;
+    float**           embeddings;
+    struct hashtable* table;
 } glove;
 
 /**
@@ -38,8 +37,7 @@ typedef struct
  * @return glove* An instance of glove that can be used to access word
  * embeddings
  */
-glove *glove_create (const char *filename, const size_t vocab_size,
-                     const size_t embedding_dims);
+glove* glove_create(const char* filename, const size_t vocab_size, const size_t embedding_dims);
 
 /**
  * @brief Returns the embedding for the given `word`
@@ -48,7 +46,7 @@ glove *glove_create (const char *filename, const size_t vocab_size,
  * @return float* Embedding for the given `word`. Equals `0` if the embedding
  * was not found.
  */
-float *glove_get_embedding (glove *instance, const char *word);
+float* glove_get_embedding(glove* instance, const char* word);
 
 /**
  * @brief Compute the cosine similarity between the embeddings of words `word1`
@@ -61,8 +59,7 @@ float *glove_get_embedding (glove *instance, const char *word);
  * @return int 1 if the score was written successfully, else 0 (one of `word1`
  * or `word2` do not have embedddings)
  */
-int glove_compare_cosine (glove *instance, const char *word1,
-                          const char *word2, float *score);
+int glove_compare_cosine(glove* instance, const char* word1, const char* word2, float* score);
 
 /**
  * @brief Compute the L2 norm of the difference between the embeddings of words
@@ -75,13 +72,12 @@ int glove_compare_cosine (glove *instance, const char *word1,
  * @return int int 1 if the score was written successfully, else 0 (one of
  * `word1` or `word2` do not have embedddings)
  */
-int glove_compare_l2norm (glove *instance, const char *word1,
-                          const char *word2, float *score);
+int glove_compare_l2norm(glove* instance, const char* word1, const char* word2, float* score);
 
 /**
  * @brief Release the memory allocated to the `glove` instance
  * @param instance `glove*` instance created with `glove_create` function
  */
-void glove_release (glove *instance);
+void glove_release(glove* instance);
 
 #endif
